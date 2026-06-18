@@ -1,0 +1,1 @@
+fn main() {\n    println!("Starting Rust-Time-Series-DB service...");\n}\n

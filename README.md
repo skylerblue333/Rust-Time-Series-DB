@@ -1,0 +1,1 @@
+# Rust-Time-Series-DB\n\n## Overview\nEnterprise-grade time series db implementation in Rust.\n\n## Quick Start (1-Click Build)\n\n```bash\ngit clone https://github.com/skylerblue333/Rust-Time-Series-DB.git\ncd Rust-Time-Series-DB\n# Build instructions depend on the language\n```\n

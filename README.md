@@ -1,10 +1,10 @@
 # Sky Time Series — Rust Engineering Beta
 
-Sky Time Series is a focused Rust/Actix Web service for accepting numeric time-series points into a bounded in-memory store and querying them by key and timestamp range.
+Sky Time Series is a focused Rust/Actix Web service for accepting numeric time-series points into an in-memory store and querying them by key and timestamp range.
 
 ## Status
 
-**Engineering beta.** The current implementation has a real Rust store, validation, deterministic timestamp ordering, range queries, health/readiness endpoints, unit tests, CI, dependency auditing, and a non-root container. It is **not** a durable database and does not claim replication, WAL persistence, compaction, retention policies, clustering, HA, multi-tenancy, or production deployment.
+**Engineering beta.** The current implementation has a real Rust store, validation, deterministic timestamp ordering, range queries, health/readiness endpoints, unit tests, CI, dependency auditing, and a non-root container. The in-memory store is currently **unbounded**: it has no capacity, eviction, or retention policy, so sustained writes can grow process memory. It is **not** a durable database and does not claim replication, WAL persistence, compaction, retention policies, clustering, HA, multi-tenancy, or production deployment.
 
 ## API
 
@@ -45,7 +45,7 @@ Use this service behind a stable HTTP interface for short-lived metrics, simulat
 
 ## Security and operational boundaries
 
-The service validates key length, finite numeric values, and query ranges, but it does not currently provide authentication, authorization, TLS termination, rate limiting, persistence, encryption at rest, or tenant isolation. Deploy only behind appropriate infrastructure if used outside local development.
+The service validates key length, finite numeric values, and query ranges, but it does not currently provide authentication, authorization, TLS termination, rate limiting, persistence, encryption at rest, tenant isolation, or memory-retention controls. Deploy only behind appropriate infrastructure if used outside local development.
 
 ## License
 

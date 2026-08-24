@@ -17,6 +17,8 @@ jobs:
           components: rustfmt, clippy
       - name: Generate dependency lock
         run: cargo generate-lockfile
+      - name: Verify dependency lock
+        run: test -s Cargo.lock
       - name: Format
         run: cargo fmt --all -- --check
       - name: Check

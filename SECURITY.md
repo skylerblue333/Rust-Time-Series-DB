@@ -2,12 +2,14 @@
 
 ## Supported status
 
-Sky Time Series is currently an engineering beta. Security reports are welcome, but no production-support SLA is offered.
+Sky Time Series is an **engineering beta**. CI verifies formatting, compilation, Clippy, tests, a generated dependency-lock audit, release build, Docker build, and non-root image execution. Production infrastructure is not verified by this repository and no production-support SLA is offered.
 
 ## Current boundaries
 
-The service does not implement authentication, authorization, TLS termination, rate limiting, persistence, encryption at rest, or multi-tenant isolation. Operators must provide those controls externally if the service is exposed beyond a trusted development environment.
+The service validates series key length, finite numeric values, and timestamp-range ordering. It does not implement authentication, authorization, TLS termination, request rate limiting, persistence, encryption at rest, retention enforcement, replication, or multi-tenant isolation.
+
+Operators must provide network access control, TLS, authentication, resource limits, observability, durable-storage policy, backup/restore, and abuse prevention if the service is exposed beyond a trusted development environment.
 
 ## Reporting
 
-Please report suspected vulnerabilities privately through GitHub's security reporting mechanisms when available. Do not include secrets or exploit payloads in public issues.
+Please report suspected vulnerabilities privately through GitHub's security reporting mechanisms when available. Do not include credentials, private telemetry, customer data, or exploit payloads in public issues.

@@ -1,8 +1,9 @@
 FROM rust:1.87-bookworm AS builder
 WORKDIR /app
-COPY Cargo.toml Cargo.lock* ./
+COPY Cargo.toml ./
 COPY src ./src
-RUN cargo build --release --locked
+RUN cargo generate-lockfile \
+    && cargo build --release --locked
 
 FROM debian:bookworm-slim
 RUN useradd --system --uid 10001 --create-home appuser

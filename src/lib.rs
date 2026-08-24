@@ -39,6 +39,7 @@ impl Store {
     }
 
     pub fn get(&self, key: &str) -> Result<Vec<Record>, &'static str> {
+        let key = key.trim();
         let data = self.data.lock().map_err(|_| "store lock poisoned")?;
         Ok(data.get(key).cloned().unwrap_or_default())
     }
@@ -85,6 +86,14 @@ mod tests {
         assert_eq!(records.len(), 2);
         assert_eq!(records[0].timestamp, 2_000);
         assert_eq!(records[1].timestamp, 3_000);
+    }
+
+    #[test]
+    fn normalizes_keys_consistently() {
+        let store = Store::new();
+        store.insert(" cpu ", 42.0, 1_000).unwrap();
+        assert_eq!(store.get(" cpu ").unwrap().len(), 1);
+        assert_eq!(store.range(" cpu ", 0, 2_000).unwrap().len(), 1);
     }
 
     #[test]

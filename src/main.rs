@@ -22,7 +22,9 @@ async fn insert(store: web::Data<app::Store>, req: web::Json<InsertRequest>) -> 
                 "status": "inserted",
                 "total": total
             })),
-            Err(error) => HttpResponse::InternalServerError().json(serde_json::json!({ "error": error })),
+            Err(error) => {
+                HttpResponse::InternalServerError().json(serde_json::json!({ "error": error }))
+            }
         },
         Err(error) => HttpResponse::BadRequest().json(serde_json::json!({ "error": error })),
     }
@@ -62,7 +64,9 @@ async fn ready(store: web::Data<app::Store>) -> impl Responder {
             "service": "sky-timeseries",
             "points": total
         })),
-        Err(error) => HttpResponse::ServiceUnavailable().json(serde_json::json!({ "error": error })),
+        Err(error) => {
+            HttpResponse::ServiceUnavailable().json(serde_json::json!({ "error": error }))
+        }
     }
 }
 

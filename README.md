@@ -1,6 +1,6 @@
 # Sky Time Series — Rust Engineering Beta
 
-Sky Time Series is a focused Rust/Actix Web service for accepting numeric time-series points into an in-memory store and querying them by key and timestamp range.
+Sky Time Series is a focused Rust/Axum service for accepting numeric time-series points into an in-memory store and querying them by key and timestamp range.
 
 ## Status
 
@@ -24,6 +24,7 @@ Set `BIND_ADDR` to override the default `0.0.0.0:8080` bind address.
 ## Verify
 
 ```bash
+cargo generate-lockfile
 cargo fmt --all -- --check
 cargo check --locked
 cargo clippy --all-targets --all-features --locked -- -D warnings
@@ -33,11 +34,11 @@ docker build -t sky-timeseries .
 docker run --rm --entrypoint=id sky-timeseries -u
 ```
 
-The container is expected to run as UID `10001`, not root.
+The container is expected to run as UID `10001`, not root. This beta currently generates its dependency lock before the locked verification gates; a future release checkpoint should commit and maintain a reviewed `Cargo.lock` for fully reproducible application builds.
 
 ## Architecture
 
-`src/lib.rs` contains the reusable in-memory store. Each series is a vector of validated records held behind `Arc<Mutex<...>>`; records are sorted by timestamp after insertion. `src/main.rs` exposes the store through a small Actix Web API. This design is intentionally simple and suitable for a reusable engineering component, not a durable TSDB replacement.
+`src/lib.rs` contains the reusable in-memory store. Each series is a vector of validated records held behind `Arc<Mutex<...>>`; records are sorted by timestamp after insertion. `src/main.rs` exposes the store through a small Axum HTTP API. This design is intentionally simple and suitable for a reusable engineering component, not a durable TSDB replacement.
 
 ## SKYCOIN4444 integration
 
